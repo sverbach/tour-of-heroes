@@ -14,6 +14,11 @@ export class HeroDetailComponent implements OnInit {
   @Input() set hero(value: ResolveData<Hero>) {
     console.log(value);
     this.hero2 = value.initialValue;
+    value.stream.refresh();
+    value.stream.refresh();
+    value.stream.refresh();
+    value.stream.refresh();
+    value.stream.stream.subscribe(console.log);
   }
 
   constructor(
