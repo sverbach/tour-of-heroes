@@ -1,8 +1,9 @@
 import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
-import { ResolveData } from '../app-routing.module';
+import { Router } from '@angular/router';
 import { Hero } from '../hero';
+import { DataStream } from '../data-loading/data-stream';
 
 @Component({
   selector: 'app-hero-detail',
@@ -11,20 +12,22 @@ import { Hero } from '../hero';
 })
 export class HeroDetailComponent implements OnInit {
   hero2!: Hero;
-  @Input() set hero(value: ResolveData<Hero>) {
+  @Input() set hero(value: DataStream<Hero>) {
     console.log(value);
-    this.hero2 = value.initialValue;
-    value.stream.refresh();
-    value.stream.refresh();
-    value.stream.refresh();
-    value.stream.refresh();
-    value.stream.stream.subscribe(console.log);
+    this.hero2 = value.initialValue!;
+    value.refresh();
+    value.refresh();
+    value.refresh();
+    value.refresh();
+    value.stream.subscribe(console.log);
   }
 
   constructor(
-    private location: Location
+    private location: Location,
+    router: Router
   ) {
     console.log(this.hero2);
+    console.log(router.config);
   }
 
   ngOnInit(): void {
