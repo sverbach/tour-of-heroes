@@ -1,26 +1,32 @@
-import { Observable, ReplaySubject, map, take, tap } from "rxjs";
+import { Observable, map } from "rxjs";
 
-export class DataStream<T> extends Observable<DataStream<T>> {
-  public initialValue: T | null = null;
-  public readonly stream: ReplaySubject<T> = new ReplaySubject<T>();
+export class DataResolver<T> extends Observable<DataStream<T>> {
 
   constructor(private coldObservable: Observable<T>) {
     super(subscriber => {
-      this.refresh();
-
-      this.stream
+      this.coldObservable
         .pipe(
-          tap(value => this.initialValue = value),
-          map(_ => this),
-          take(1)
+          map(value => new DataStream(value, coldObservable)),
         ).subscribe((observerOrNext) => {
           subscriber.next(observerOrNext);
           subscriber.complete();
         });
       });
   }
+}
 
-  public refresh(): void {
-    this.coldObservable.subscribe(value => this.stream.next(value));
-  }
+export class DataStream<T> extends Observable<DataStream<T>> {
+
+  constructor(
+    public initialValue: T,
+    private readonly hotObservable: Observable<T>) {
+      super(subscriber => {
+        this.hotObservable
+          .pipe(
+            map(_ => this),
+          ).subscribe((observerOrNext) => {
+            subscriber.next(observerOrNext);
+          });
+        });
+      }
 }

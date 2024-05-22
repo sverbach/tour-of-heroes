@@ -1,9 +1,8 @@
 import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
-import { Router } from '@angular/router';
-import { Hero } from '../hero';
 import { DataStream } from '../data-loading/data-stream';
+import { Hero } from '../hero';
 
 @Component({
   selector: 'app-hero-detail',
@@ -11,27 +10,25 @@ import { DataStream } from '../data-loading/data-stream';
   styleUrls: [ './hero-detail.component.css' ]
 })
 export class HeroDetailComponent implements OnInit {
-  hero2!: Hero;
-  @Input() set hero(value: DataStream<Hero>) {
+  protected _hero!: Hero;
+
+  @Input() public set hero(value: DataStream<Hero>) {
     console.log(value);
-    this.hero2 = value.initialValue!;
-    value.refresh();
-    value.refresh();
-    value.refresh();
-    value.refresh();
-    value.stream.subscribe(console.log);
+    this._hero = value.initialValue!;
+
+    value.subscribe(console.log);
+    value.subscribe(console.log);
+    value.subscribe(console.log);
+    value.subscribe(console.log);
   }
 
   constructor(
-    private location: Location,
-    router: Router
+    private location: Location
   ) {
-    console.log(this.hero2);
-    console.log(router.config);
   }
 
   ngOnInit(): void {
-    console.log(this.hero2);
+    console.log(this._hero);
   }
 
   goBack(): void {

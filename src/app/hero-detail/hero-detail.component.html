@@ -1,8 +1,8 @@
-<h2>{{hero2.name | uppercase}} Details</h2>
-  <div><span>id: </span>{{hero2.id}}</div>
-  <div>
-    <label for="hero-name">Hero name: </label>
-    <input id="hero-name" [(ngModel)]="hero2.name" placeholder="Hero name"/>
-  </div>
-  <button type="button" (click)="goBack()">go back</button>
-  <button type="button" (click)="save()">save</button>
+<h2>{{_hero.name | uppercase}} Details</h2>
+<div><span>id: </span>{{_hero.id}}</div>
+<div>
+  <label for="hero-name">Hero name: </label>
+  <input id="hero-name" [(ngModel)]="_hero.name" placeholder="Hero name"/>
+</div>
+<button type="button" (click)="goBack()">go back</button>
+<button type="button" (click)="save()">save</button>
