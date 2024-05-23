@@ -1,4 +1,4 @@
-import { Observable, map } from "rxjs";
+import { Observable, map, tap } from "rxjs";
 
 export class DataResolver<T> extends Observable<DataStream<T>> {
 
@@ -18,11 +18,12 @@ export class DataResolver<T> extends Observable<DataStream<T>> {
 export class DataStream<T> extends Observable<DataStream<T>> {
 
   constructor(
-    public initialValue: T,
+    public currentValue: T,
     private readonly hotObservable: Observable<T>) {
       super(subscriber => {
         this.hotObservable
           .pipe(
+            tap(value => this.currentValue = value),
             map(_ => this),
           ).subscribe((observerOrNext) => {
             subscriber.next(observerOrNext);

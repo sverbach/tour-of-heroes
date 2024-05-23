@@ -6,6 +6,7 @@ import { catchError, delay, map, tap } from 'rxjs/operators';
 
 import { Hero } from './hero';
 import { MessageService } from './message.service';
+import { JsonPipe } from '@angular/common';
 
 
 @Injectable({ providedIn: 'root' })
@@ -19,7 +20,8 @@ export class HeroService {
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private jsonPipe: JsonPipe) { }
 
   /** GET heroes from the server */
   getHeroes(): Observable<Hero[]> {
@@ -49,9 +51,9 @@ export class HeroService {
     const url = `${this.heroesUrl}/${id}`;
 
     return this.http.get<Hero>(url).pipe(
-      tap(_ => console.log(`start fetch hero id=${id}`)),
-      delay(2_000),
-      tap(_ => this.log(`completed hero id=${id}`)),
+      delay(1_000),
+      tap(hero => hero.seed = Math.random()),
+      tap(value => this.log(`fetched hero=${this.jsonPipe.transform(value)}`)),
       catchError(this.handleError<Hero>(`getHero id=${id}`))
     );
   }

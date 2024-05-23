@@ -14,9 +14,11 @@ import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { MessagesComponent } from './messages/messages.component';
+import { CommonModule, JsonPipe } from '@angular/common';
 
 @NgModule({
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,
@@ -36,6 +38,9 @@ import { MessagesComponent } from './messages/messages.component';
     HeroDetailComponent,
     MessagesComponent,
     HeroSearchComponent
+  ],
+  providers: [
+    JsonPipe
   ],
   bootstrap: [ AppComponent ]
 })

@@ -10,17 +10,8 @@ import { Hero } from '../hero';
   styleUrls: [ './hero-detail.component.css' ]
 })
 export class HeroDetailComponent implements OnInit {
-  protected _hero!: Hero;
-
-  @Input() public set hero(value: DataStream<Hero>) {
-    console.log(value);
-    this._hero = value.initialValue!;
-
-    value.subscribe(console.log);
-    value.subscribe(console.log);
-    value.subscribe(console.log);
-    value.subscribe(console.log);
-  }
+  @Input()
+  protected hero!: DataStream<Hero>;
 
   constructor(
     private location: Location
@@ -28,7 +19,7 @@ export class HeroDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this._hero);
+    console.log(this.hero);
   }
 
   goBack(): void {

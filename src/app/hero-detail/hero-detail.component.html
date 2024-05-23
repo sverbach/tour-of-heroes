@@ -1,8 +1,12 @@
-<h2>{{_hero.name | uppercase}} Details</h2>
-<div><span>id: </span>{{_hero.id}}</div>
+<h2>{{hero.currentValue.name | uppercase}} Details</h2>
+<div><span>id: </span>{{hero.currentValue.id}}</div>
+<div><span>seed: </span>{{hero.currentValue.seed}}</div>
+<br/>
 <div>
   <label for="hero-name">Hero name: </label>
-  <input id="hero-name" [(ngModel)]="_hero.name" placeholder="Hero name"/>
+  <input id="hero-name" [(ngModel)]="hero.currentValue.name" placeholder="Hero name"/>
 </div>
+<br/>
 <button type="button" (click)="goBack()">go back</button>
 <button type="button" (click)="save()">save</button>
+<button type="button" (click)="hero.subscribe()">refresh</button>
