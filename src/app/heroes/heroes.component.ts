@@ -1,18 +1,25 @@
-import { Component, Input, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import { Hero } from '../hero';
 import { HeroesDataService } from '../heroes-data.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { HeroesMobXStore } from '../heroes.mobx.store';
 
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
-  styleUrls: ['./heroes.component.css']
+  styleUrls: ['./heroes.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroesComponent {
   private readonly heroesDataService = inject(HeroesDataService);
+  public readonly mobxStore = inject(HeroesMobXStore);
 
   @Input()
-  heroes$!: Observable<Hero[]>
+  heroes$: Observable<Hero[]> = of([]);
+
+  @Input()
+  heroes: Hero[] = [];
+
 
   add(name: string): void {
     name = name.trim();

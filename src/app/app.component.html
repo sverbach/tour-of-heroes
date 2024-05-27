@@ -4,4 +4,5 @@
   <a routerLink="/heroes">Heroes</a>
 </nav>
 <router-outlet></router-outlet>
+<button (click)="heroesDataService.refreshHeroes()">Fetch</button>
 <app-messages></app-messages>

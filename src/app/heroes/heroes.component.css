@@ -88,3 +88,9 @@ button.delete:hover {
   background-color: #525252;
   color: white;
 }
+
+.compare {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}

@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, ReplaySubject } from "rxjs";
 import { Hero } from "./hero";
 
 @Injectable({ providedIn: 'root' })
-export class HeroStore {
-  private readonly heroesSubject = new BehaviorSubject<Hero[]>([]);
+export class HeroesStore {
+  private readonly heroesSubject = new ReplaySubject<Hero[]>(1);
   public readonly heroes$ = this.heroesSubject.asObservable();
 
   setHeroes(heroes: Hero[]) {

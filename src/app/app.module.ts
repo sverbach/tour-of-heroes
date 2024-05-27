@@ -15,6 +15,7 @@ import { HeroesComponent } from './heroes/heroes.component';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { MessagesComponent } from './messages/messages.component';
 import { CommonModule, JsonPipe } from '@angular/common';
+import { MobxAngularModule } from 'mobx-angular';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { CommonModule, JsonPipe } from '@angular/common';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    MobxAngularModule,
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
