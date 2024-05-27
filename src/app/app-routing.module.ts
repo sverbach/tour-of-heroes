@@ -7,6 +7,8 @@ import { Hero } from './hero';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { HeroService } from './hero.service';
 import { HeroesComponent } from './heroes/heroes.component';
+import { resolveTopHeroes } from './top-heroes.resolver';
+import { resolveHeroes } from './heroes.resolver';
 
 // REFERENCE: Expose Data Stream via resolverFn
 const resolveHero: ResolveFn<DataResolver<Hero>> = (route: ActivatedRouteSnapshot, _: RouterStateSnapshot): DataResolver<Hero> => {
@@ -18,9 +20,9 @@ const resolveHero: ResolveFn<DataResolver<Hero>> = (route: ActivatedRouteSnapsho
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent, resolve: {heroes$: resolveTopHeroes} },
   { path: 'detail/:id', component: HeroDetailComponent, resolve: { hero: resolveHero } },
-  { path: 'heroes', component: HeroesComponent }
+  { path: 'heroes', component: HeroesComponent, resolve: {heroes$: resolveHeroes} }
 ];
 
 @NgModule({
